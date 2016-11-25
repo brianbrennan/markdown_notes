@@ -30,6 +30,10 @@
 			letter-spacing: 0.06em;
 			text-transform: uppercase;
 			font-size: 60px;
+			-webkit-hyphens: manual !important;
+			-moz-hyphens: manual !important;
+			-ms-hyphens: manual !important;
+			hyphens: manual !important;
 		}
 
 		h2 {
@@ -38,7 +42,7 @@
 
 		code {
 			background-color: #f8f8f8;
-			padding: 1px 2px;
+			padding: 0 2px 2px 2px;
 			border-radius: 3px;
 		}
 
@@ -76,13 +80,22 @@
 		.pull-A {margin-left: -0.03em}
 		.push-A {margin-right: 0.03em}
 
+		.last-updated-date {
+			position: absolute;
+			color: #666;
+			right: 5px;
+			top: 5px;
+			font-family: 'Lato';
+			font-size: 11px;
+		}
+
 	</style>
 </head>
 <body>
 
 <div class="wrapper">
 	
-<h1 id="boolean-evalulation-in-non-strictly-typed-javascript">Boolean eval­u­la­tion in non-strictly typed JavaScript</h1>
+<div class="last-updated-date">Last Updated 11/25/2016 12:47</div><h1 id="boolean-evalulation-in-non-strictly-typed-javascript">Boolean eval­u­la­tion in non-strictly typed JavaScript</h1>
 <p>JavaScript typ­ing is a topic of de­bate that is cur­rently rag­ing in the world of frame­works. How should things be typed in JS? Should it mimic strongly typed lan­guages? Or should some of the weird­ness of <span class="small-caps">JS</span> be em­braced and ex­panded upon with its own syn­tac­tic sugar. Well, the jury is still out on that one, but its easy to see for our lit­tle run­time-lan­guage-that-could has a fu­ture in­volv­ing a much stricter rule-set. But if you don’t feel like pick­ing up some­thing like TypeScript or <span class="small-caps">ES6</span>, then there’s some cool nu­ances that are good to have in your back pocket.</p>
 <h2 id="you-re-just-not-my-type">You’re just not my type</h2>
 <p>Boolean typ­ing in <span class="small-caps">JS</span> is a bit weird. And it mainly has to do with how val­ues are read in and sub­se­quently eval­u­ated. If you don’t know what truthy and falsey val­ues in <span class="small-caps">JS</span> are, they’re ba­si­cally val­ues that are get­ting eval­u­ated to a boolean with­out ac­tu­ally chang­ing the value of the operand. The fol­low­ing val­ues are falsey:</p>

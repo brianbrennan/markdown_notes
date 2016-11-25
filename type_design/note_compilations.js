@@ -52,7 +52,17 @@
   					}
   				}
 
-  				convertToHtmlFile(typeset(marked(data.toString('utf-8'))), newBasePath);
+  				var lastUpdated = '';
+				var lastUpdatedDate = new Date(fs.statSync(file).mtime);
+				lastUpdatedDate = [lastUpdatedDate.getMonth()+1,
+               						lastUpdatedDate.getDate(),
+               						lastUpdatedDate.getFullYear()].join('/')+' '+
+              						[lastUpdatedDate.getHours(),
+               						lastUpdatedDate.getMinutes()].join(':');
+  				
+  				lastUpdated += '<div class="last-updated-date">Last Updated ' + lastUpdatedDate.toString() + '</div>';
+
+  				convertToHtmlFile(typeset(lastUpdated + marked(data.toString('utf-8'))), newBasePath);
   			});
   		});
   	}
