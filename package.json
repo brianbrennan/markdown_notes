@@ -1,0 +1,31 @@
+{
+  "name": "markdown_notes",
+  "version": "1.0.0",
+  "description": "A repository for markdown notes on various subjects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brianbrennan/markdown_notes.git"
+  },
+  "keywords": [
+    "markdown"
+  ],
+  "author": "Brian Brennan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brianbrennan/markdown_notes/issues"
+  },
+  "bin": {
+    "compilation": "./type_design/note_compilations.js"
+  },
+  "homepage": "https://github.com/brianbrennan/markdown_notes",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "highlightjs": "^9.8.0",
+    "marked": "^0.3.6",
+    "typeset": "^0.2.2"
+  }
+}

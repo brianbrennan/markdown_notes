@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/atelier-lakeside-dark.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato:700,900" rel="stylesheet">
+	<title>bangbangyoureboolean</title>
+
+	<style>
+		body {
+			font-family: 'Georgia', serif;
+		}
+
+		.wrapper {
+			width: 780px;
+			margin: auto;
+		}
+
+		p {
+			line-height: 1.8;
+			font-size: 18px;
+		}
+
+		h1,h2,h3,h4,h5,h6 {
+			font-family: 'Lato', sans-serif;
+			font-weight: 900;
+		}
+
+		h1 {
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+			font-size: 60px;
+		}
+
+		h2 {
+			margin-top: 30px;
+		}
+
+		code {
+			background-color: #f8f8f8;
+			padding: 1px 2px;
+			border-radius: 3px;
+		}
+
+		pre {
+			background-color: #f8f8f8;
+			padding: 8px 12px;
+			border-radius: 3px;
+		}
+
+		pre code  {
+			background-color: none;
+			border-radius: none;
+			padding: none;
+		}
+
+		/*Typeset from blot.im */
+		/* Small caps */
+		.small-caps {font-family: 'Charter SC', serif}
+
+		/* Double quote (") marks */
+		.pull-double{margin-left:-.38em}
+		.push-double{margin-right:.38em}
+
+		/* Single quote (') marks */
+		.pull-single{margin-left:-.15em}
+		.push-single{margin-right:.15em}
+
+		/* Optical margin alignment for particular letters */
+		.pull-T, .pull-V, .pull-W, .pull-Y {margin-left: -0.07em}
+		.push-T, .push-V, .push-W, .push-Y {margin-right: 0.07em}
+
+		.pull-O, .pull-C, .pull-o, .pull-c {margin-left: -0.04em}
+		.push-O, .push-C, .push-o, .push-c {margin-right: 0.04em}
+
+		.pull-A {margin-left: -0.03em}
+		.push-A {margin-right: 0.03em}
+
+	</style>
+</head>
+<body>
+
+<div class="wrapper">
+	
+<h1 id="boolean-evalulation-in-non-strictly-typed-javascript">Boolean eval­u­la­tion in non-strictly typed JavaScript</h1>
+<p>JavaScript typ­ing is a topic of de­bate that is cur­rently rag­ing in the world of frame­works. How should things be typed in JS? Should it mimic strongly typed lan­guages? Or should some of the weird­ness of <span class="small-caps">JS</span> be em­braced and ex­panded upon with its own syn­tac­tic sugar. Well, the jury is still out on that one, but its easy to see for our lit­tle run­time-lan­guage-that-could has a fu­ture in­volv­ing a much stricter rule-set. But if you don’t feel like pick­ing up some­thing like TypeScript or <span class="small-caps">ES6</span>, then there’s some cool nu­ances that are good to have in your back pocket.</p>
+<h2 id="you-re-just-not-my-type">You’re just not my type</h2>
+<p>Boolean typ­ing in <span class="small-caps">JS</span> is a bit weird. And it mainly has to do with how val­ues are read in and sub­se­quently eval­u­ated. If you don’t know what truthy and falsey val­ues in <span class="small-caps">JS</span> are, they’re ba­si­cally val­ues that are get­ting eval­u­ated to a boolean with­out ac­tu­ally chang­ing the value of the operand. The fol­low­ing val­ues are falsey:</p>
+<ul>
+<li><code>false</code>,</li>
+<li><code>0</code> (zero),</li>
+<li><code>&#39;&#39;</code> (empty string),</li>
+<li><code>null</code>,</li>
+<li><code>undefined</code>,</li>
+<li><code>NaN</code></li>
+</ul>
+<p>And here’s the val­ues that are truthy</p>
+<ul>
+<li><em>Literally every­thing else</em></li>
+</ul>
+<p>Seems fairly sim­ple right? If some­thing is<span class="push-double"></span> <span class="pull-double">“</span>bad” or<span class="push-double"></span> <span class="pull-double">“</span>doesn’t ex­ist”, it’s <code>false</code>. Something that is<span class="push-double"></span> <span class="pull-double">“</span>good” or<span class="push-double"></span> <span class="pull-double">“</span>does ex­ist” is <code>true</code>. Simple! Well, not quite. Boolean val­ues in <span class="small-caps">JS</span> have some weird nu­ances in­volv­ing de­c­la­ra­tion state­ments and im­ple­men­ta­tions. Here’s a list of some of the an­noy­ing ones and how to deal with them.</p>
+<h2 id="-1-is-true-even-in-0-indexed-arrays">-1 is true, even in 0 in­dexed ar­rays</h2>
+<p>This one is a per­sonal pet peeve. I know that there is prob­a­bly a deeply in­grained rea­son for this, but it does­n’t make it any less an­noy­ing. As you can see from the list above of falsey val­ues, the only nu­mer­i­cal one is <code>0</code> (okay tech­ni­cally <code>NaN</code> is as well but shush). If you have some sort of equa­tion or out­put that equals <code>0</code>, then it is con­sid­ered <code>false</code>. This can be­come prob­lem­atic when deal­ing with po­si­tion­ing within ar­rays. When you want to ﬁnd the <code>indexOf</code> an item in an ar­ray, the re­turned value is <code>-1</code> if the item does­n’t ex­ist in the ar­ray. Remember how I said that things that are<span class="push-double"></span> <span class="pull-double">“</span>bad” or<span class="push-double"></span> <span class="pull-double">“</span>don’t ex­ist” are falsey? Whelp, not in this case. If you try to search for the let­ter <code>&quot;k&quot;</code> in the word <code>&quot;fabric&quot;</code>, and try to eval­u­ate the boolean na­ture of that state­ment, it will come out as true. But there’s more. If you try to ﬁnd the po­si­tion of <code>&quot;f&quot;</code> in the word <code>&quot;fabric&quot;</code>, you will get the cor­rect po­si­tion of <code>0</code>, the ﬁrst item in a zero-in­dexed ar­ray, and that state­ment eval­u­ates as false. Again, I’m sure there’s a rea­son that the gods of pro­gram­ming de­cided to keep this the way it is, but would­n’t it be much eas­ier if you could just just say</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-title">if</span><span class="hljs-params">(array.indexOf(<span class="hljs-number">1</span>)</span></span>) {
+    <span class="hljs-comment">//some statement based on truthiness</span>
+} <span class="hljs-keyword">else</span> {
+   <span class="hljs-comment">//some statement based on falsiness</span>
+}
+</code></pre>
+<h2 id="nan-does-not-equal-itself">NaN does not equal it­self</h2>
+<p>A fea­ture of most boolean val­ues is that they have a prop­erty of iden­tity. If you were to com­pare most val­ues to it­self within a boolean op­er­a­tion, you’d get <code>true</code>. Want to see if some­thing eval­u­ates to <code>true</code>? Just com­pare it to <code>true</code>. Trying to check if a prop­erty is <code>undefined</code>? Just write <code>property === undefined</code>. There is a no­table ex­cep­tion to this rule, and its name is <code>NaN</code>. Not-a-Number is a spe­cial Numerical value that is some­what rarer than other prob­lem chil­dren like <code>undefined</code> and <code>null</code>, but that does­n’t mean it is­n’t tricky to eval­u­ate via <code>boolean</code>. Lets say you wanted to do and er­ror check for a spe­ciﬁc in­put that a user has given you. Lets say that by the most per­fect storm of ter­ri­ble in­putting, they get a value of <code>NaN</code>. How do you check for that? Well surely you should be able to just write <code>inputValue === NaN</code>, right? Wrong. <code>NaN === NaN</code> eval­u­ates to <code>false</code>. It does­n’t equal it­self. Now, again, I know there’s a per­fectly good rea­son as to why this is the case, and re­ly­ing on <code>NaN</code> for er­ror check­ing is pretty ter­ri­ble pro­gram­ming, but nonethe­less, hav­ing weird­ness with fun­da­men­tal val­ues can cer­tainly lead to some hair pulling if you aren’t care­ful.</p>
+<h2 id="bang-bang-you-re-a-boolean">Bang Bang, you’re a boolean</h2>
+<p>This nu­ance is prob­a­bly my fa­vorite, and its re­ally just be­cause I read the best com­ment about it when I was try­ing to ﬁg­ure it out. JavaScript not be­ing strongly typed can def­i­nitely lead to com­edy. Lets say you have a value, and you want to re­turn its truthi­ness or falsi­ness. But what if you’re us­ing some sort of lint­ing pro­gram that pre­vents non-strict com­par­isons? And what if you don’t want to re­turn <code>true</code> if the value is <code>undefined</code>, but <code>false</code> if its <code>null</code>. Well, there’s a slightly ob­scured, amaz­ing way to say<span class="push-double"></span> <span class="pull-double">“</span>no, this is a true blue boolean, not some of that pseudo boolean eval­u­a­tion stuff”. </p>
+<pre><code class="lang-javascript">!!(x)
+</code></pre>
+<p>A <code>!</code> char­ac­ter in boolean con­text ba­si­cally means<span class="push-double"></span> <span class="pull-double">“</span>take what­ev­ers af­ter this and make it op­po­site”. The dou­ble-bang op­er­a­tor can quickly be de­scribed as <span class="small-caps">NOT</span> <span class="small-caps">NOT</span>. As well all know from 3rd grade eng­lish class, dou­ble neg­a­tives aren’t the best way to write things, but they do get the job done in this case.</p>
+<p>This ex­pres­sion will re­turn true, or false de­pend­ing on the value of <code>x</code>. I’m go­ing to have to give credit to Gus on stack over­ﬂow for com­ing up with the best jin­gle for this. <a href="http://stackoverflow.com/questions/784929/what-is-the-not-not-operator-in-javascript">http://​stack­over­ﬂow.com/​ques­tions/​784929/​what-is-the-not-not-op­er­a­tor-in-javascript</a>.<span class="push-double"></span> <span class="pull-double">“</span>Bang Bang, you’re boolean”. It works bests if you point ﬁn­ger-guns at your screen and make guns noises while run­ning your code by the way.</p>
+</div></body>
