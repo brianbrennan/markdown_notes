@@ -1,4 +1,4 @@
-# Problems with SVGs and how to fix them
+# A Problem with SVGs and How to Avoid it
 
 I found an interesting bug while trying to find an easy to use SVG solution alternatives at work. I'd like to take you on the trip I went on while trying to solve a problem, in order to get the full scope of this super niche issue.
 
@@ -14,4 +14,30 @@ Except, that block of garbage can't get "referenced" in your compiled CSS now, i
 
 ## How SVGs *should* be implemented
 
-Now, this is one particular bad way to implement this, but how can we fix it, and what are some other solutions? SVGs are very flexible in the way of how they can be implemented, and like I've said, there is little consistency on which way is best. 
+Now, this is one particular bad way to implement this, but how can we fix it, and what are some other solutions? SVGs are very flexible in the way of how they can be implemented, and like I've said, there is little consistency on which way is best. In my mind, there are two ways that an SVG can and should be implemented, and they both have their benefit. The first is to use them inline. SVGs can be injected directly into your markup. This allows you the added benefit of being able to dynamicly manipulate them. Once an SVG is inline, you can think of it as being drawn when the page is being painted by the browser, but it can be updated via CSS as well. A simple example of this having an icon, that once hovered over, will change the fill color from blue to red.
+
+```HTML
+<!-- in your HTML -->
+	<svg>
+		<path></path> <!-- part of your svg icon -->
+		.
+		.
+		.
+	</svg>
+```
+
+```SASS
+	 //In your Stylesheet (sass in this example)
+	svg {
+		path {
+			fill: blue;
+		}
+
+		&: hover {
+			path {
+				fill: red;
+			}
+		}
+	}
+
+```
