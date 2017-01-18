@@ -1,5 +1,17 @@
 #Maker & Stone
 
+* [The Problem With Online Retail Today](#)
+* [Why Maker & Stone is Different](#)
+* [Payment through Stripe](#)
+* [Fulfillment through Printful](#)
+* [Returns and Disputes](#)
+* [Scalability](#)
+* [Moving Forward](#)
+
+##Abstract
+
+The purpose of this document is to give a high level overview of the integrations, implentations, and synopses of all things Maker & Stone. This is a brief introduction into what makes our company tick. While we are just beginning our journey as a business right now, know that this repository will be added on to.
+
 ##The Problem with Online Retail Today
 
 Small business ecommerce has become a booming industry in the past few years. It is incredibly easy to set up a website that has a full store ready to go. Using platforms like Shopify seem to be an industry standard when it comes to setting up an online store. But this ease of use comes at a price. A large one. Shopify, for example, costs $79 a month for their mid-tier, on top of 2.6% + $0.30 transaction fees, and an additional 1% for using an external payment platform (which you're almost required to do in todays day and age). The lower tier is even worse, at $29 a month, but 2.9% + $0.30 and an addition 2% for external payments.
@@ -30,7 +42,15 @@ While the previous section cover the "happy path" of a potential transaction, th
 
 Returns are handled easily through Printful as well. In compliance with ecommerce standards, we provide a 30 day return policy for items damaged, or in poor condition upon arrival. If deemed the fault of Printful, they will cover the cost. We will encourage customers to contact us before trying to return for other reasons, as it could potentially lead to us having to take a financial hit, but it is important to understand that this is a necessary level of manual work.
 
+##Scalability
+
+Scalability refers to our ability to increase our users, products, and transactions. This has been *thoroughly* considered ever since the conception of Maker & Stone. Building a web store is one thing. Building a web app that can serve thousands as easily as it can serve dozens is quite another. We have been building a rigoruous technical stack to ensure that if the surge of consumers begins knocking at our door, we will be able to cater them. Bugs are money lost. Downtime is money lost. Data inconsistency is money lost. These are all details that we have begun implementing for our web application, to ensure that future business *always* remain open to us. A non-comprehensive overview of technologies implemented in our stack, in order to ensure a maintainable website, is as follows:
+
+	* *ElasticSearch - The heart of our data*. Data from various sources is cached here in order to provide extremely fast performance for users. Implementing this now opens us up ot the possibility of having robust search functionality in the future, for larger product catalogs
+	* *Digital Ocean - Our hosting platform*. Hosting our web app on a Digital Ocean droplet allows us the ability to scale in the future, by simply upgrading our servers whenever we need. This could even be as flexible as upping our storage / memory / CPU allowance during busy seasons during the year.
+	* 
+
 ##Moving Forward
 
-We are still in the very fledgling stages of our business. There is a lot of work ahead of us. While we have development covered for the meantime, various other roles are needed in order to make sure our work is successful. Customer Service, copywriting, photography, models, and designers are among those that we are in need of in order to continue at a decent pace
+We are still in the very fledgling stages of our business. There is a lot of work ahead of us. While we have development covered for the meantime, various other roles are needed in order to make sure our work is successful. Customer Service, copywriting, photography, models, and designers are among those that we are in need of in order to continue our work at a decent pace.
 
